@@ -3,29 +3,31 @@ let n = 1;
 getHTML.onclick = ()=>{
     const request = new XMLHttpRequest()
     request.open('GET','/3.html');
-    request.onload = ()=>{
-        const div = document.createElement('div')
-        div.innerHTML = request.response;
-        document.body.appendChild(div)
+    request.onreadystatechange = ()=>{
+        if(request.readyState === 4 && request.status >=200 && request.status< 300){
+            const div = document.createElement('div')
+            div.innerHTML = request.response;
+            document.body.appendChild(div)
+        }
     }
-    request.onerror = ()=>{}
     request.send()
 }
 getJS.onclick = ()=>{
     const request = new XMLHttpRequest()
     request.open('GET','/2.js')
-    request.onload = ()=>{
-        const script = document.createElement('script')
-        script.innerHTML = request.response;
-        document.body.appendChild(script)
+    request.onreadystatechange = ()=>{
+        if(request.readyState === 4 && request.status >=200 && request.status <300){
+            const script = document.createElement('script')
+            script.innerHTML = request.response;
+            document.body.appendChild(script)
+        }        
     }
-    request.onerror =()=>{}
     request.send();
 }
 getCSS.onclick = ()=>{
     const request = new XMLHttpRequest()
     request.open("GET","/style.css")
-    request.onreadystatechange=()=>{
+    request.onreadystatechange = ()=>{
         // 下载完成，但是不知道是成功2xx,还是失败 4xx 5xx
         if(request.readyState === 4){
             if(request.status >=200 && request.status <300){
